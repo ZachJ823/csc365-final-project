@@ -11,7 +11,6 @@ const MovieAdv = ({ plot, actors, rt_rating, i_rating, mc_rating }) => (
                 <li key={index}>{actor}</li>
             )}
         </ul>
-        <p>{i}</p>
     </div>
 );
 
