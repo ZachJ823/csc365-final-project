@@ -1,6 +1,7 @@
 import MovieBasic from "./MovieBasic";
 import MovieAdv from "./MovieAdv";
 import { useState } from "react";
+import Rating from "./Rating";
 
 // Use https://api.themoviedb.org/3/movie/{movie_id}.
 
@@ -47,5 +48,6 @@ export default function Movie(props) {
                 mc_rating={mc_rating}>
             </MovieAdv>
         </div>
+
     );
 }
