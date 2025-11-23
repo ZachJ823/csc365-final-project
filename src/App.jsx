@@ -8,8 +8,8 @@ import Rating from './components/Rating';
 function App() {
 
   return (
-  <div> 
-  </div>
+    <div>
+    </div>
   )
 }
 
