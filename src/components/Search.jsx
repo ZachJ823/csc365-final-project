@@ -10,7 +10,8 @@ export default function Search() {
             method: 'GET',
             headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer [key here]' // the .env file isn't working.
+                Authorization: `Bearer ${import.meta.env.REACT_APP_AUTH}`,
+                api_key: `${import.meta.env.REACT_API_KEY}`
             }
         };
 
