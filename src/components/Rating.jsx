@@ -12,10 +12,11 @@ export default function Rating({ onSubmitRating }) {
     }
 
     return (
-        <form action={submitRating}>
-            <label for="numrating">How would you rate the movie? (0 through 10)</label>
+        <form onSubmit={submitRating}>
+            <label htmlFor="numrating">How would you rate the movie? (0 through 10)</label>
             <input
-                name="numerating"
+                id="numrating"
+                name="numRating"
                 type="number"
                 required={true}
                 min={0}
@@ -25,10 +26,11 @@ export default function Rating({ onSubmitRating }) {
                 onChange={(e) => setNumRating(e.target.value)}
             />
 
-            <label for="textrating">What were your thoughts on the movie?</label>
+            <label htmlFor="textrating">What were your thoughts on the movie?</label>
             <input
+                id="textrating"
                 type="text"
-                name="textrating"
+                name="textRating"
                 required={false}
                 minLength={0}
                 maxLength={1000}
