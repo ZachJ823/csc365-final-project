@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
 // Component for users to leave ratings on a movie
-export default function Rating(props) {
+export default function Rating({ onSubmitRating }) {
     const [numRating, setNumRating] = useState('');
     const [textRating, setTextRating] = useState('');
 
     // Function to handle rating submission. These submissions are stored locally.
     const submitRating = () => {
+        onSubmitRating({ numRating, textRating });
+        console.log(`Rated movie: ${numRating} - ${textRating}`)
     }
 
     return (

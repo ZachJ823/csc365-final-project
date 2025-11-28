@@ -12,19 +12,22 @@ export default function Movie(props) {
 
     const [watched, setWatched] = useState(false);
     const [favorited, setFavorited] = useState(false);
+    const [rating, setRating] = useState([]);
 
 
     // movieWatched and movieFavorited are stored locally.
     // Function to toggle movies as watched
-    const movieWatched = () =>
-    {
+    const movieWatched = () => {
         setWatched(!watched);
     }
 
     // Function to toggle movies are favorited
-    const movieFavorited = () =>
-    {
+    const movieFavorited = () => {
         setFavorited(!favorited);
+    }
+
+    const ratedMovie = (newRating) => {
+        setRating([...rating, newRating]);
     }
 
     return (
@@ -42,11 +45,13 @@ export default function Movie(props) {
             <MovieAdv
                 plot={plot}
                 director={director}
-                actors={actors}
+                actors={actors || []}
                 rt_rating={rt_rating}
                 i_rating={i_rating}
                 mc_rating={mc_rating}>
             </MovieAdv>
+            <Rating onSubmitRating={ratedMovie}>
+            </Rating>
         </div>
 
     );
