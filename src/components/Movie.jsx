@@ -26,6 +26,7 @@ export default function Movie(props) {
         setFavorited(!favorited);
     }
 
+    // Function to rate movies
     const ratedMovie = (newRating) => {
         setRating([...rating, newRating]);
     }
