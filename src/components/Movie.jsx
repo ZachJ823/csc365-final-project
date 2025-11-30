@@ -1,34 +1,49 @@
 import MovieBasic from "./MovieBasic";
-import MovieAdv from "./MovieAdv";
-import { useState } from "react";
 import Rating from "./Rating";
+import useLocalStorage from "../hooks/UseLocalStorage";
 
 // Use https://api.themoviedb.org/3/movie/{movie_id}.
 
 // Utilizes both the MovieBasic and MovieAdv components to encapsulate an entire movie component.
 // Tagline is not implemented yet. Depends on the final design.
 export default function Movie(props) {
-    const { title, year, runtime, rated, genre, poster, tagline, plot, director, actors, rt_rating, i_rating, mc_rating } = props
+    const { id, title, year, runtime, rated, genre, poster, tagline } = props
 
-    const [watched, setWatched] = useState(false);
-    const [favorited, setFavorited] = useState(false);
-    const [rating, setRating] = useState([]);
+    const [movies, setMovies] = useLocalStorage("movies", {});
 
+    const movieData = movies[id] || {
+        favorited: false,
+        watched: false,
+        rating: [0, ""],
+    };
+
+    const { favorited, watched, rating } = movieData;
 
     // movieWatched and movieFavorited are stored locally.
     // Function to toggle movies as watched
+    // JS is gross
     const movieWatched = () => {
-        setWatched(!watched);
+        setMovies(prevMovies => ({ // Literally the most disgusting concept ever. => is stupid.
+            ...prevMovies,
+            [id]: { ...prevMovies[id], watched: !watched }
+        }));
     }
 
     // Function to toggle movies are favorited
     const movieFavorited = () => {
-        setFavorited(!favorited);
+        setMovies(prevMovies => ({
+            ...prevMovies,
+            [id]: { ...prevMovies[id], favorited: !favorited }
+        }));
     }
 
     // Function to rate movies
     const ratedMovie = (newRating) => {
-        setRating([...rating, newRating]);
+        setMovies(prevMovies => ({
+            ...prevMovies,
+            [id]: { ...prevMovies[id], rating: [newRating.numRating, newRating.textRating] }
+        }))
+        console.log(movies);
     }
 
     return (
@@ -43,14 +58,17 @@ export default function Movie(props) {
                 poster={poster}
             >
             </MovieBasic>
-            <MovieAdv
-                plot={plot}
-                director={director}
-                actors={actors || []}
-                rt_rating={rt_rating}
-                i_rating={i_rating}
-                mc_rating={mc_rating}>
-            </MovieAdv>
+            <button
+                onClick={movieWatched}
+            >
+                {!watched ? "Watch" : "Watched"}
+            </button>
+            <button
+                onClick={movieFavorited}
+            >
+                {!favorited ? "Favorite" : "Unfavorite"}
+            </button>
+
             <Rating onSubmitRating={ratedMovie}>
             </Rating>
         </div>
