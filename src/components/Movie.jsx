@@ -21,9 +21,8 @@ export default function Movie(props) {
 
     // movieWatched and movieFavorited are stored locally.
     // Function to toggle movies as watched
-    // JS is gross
     const movieWatched = () => {
-        setMovies(prevMovies => ({ // Literally the most disgusting concept ever. => is stupid.
+        setMovies(prevMovies => ({
             ...prevMovies,
             [id]: { ...prevMovies[id], watched: !watched }
         }));
