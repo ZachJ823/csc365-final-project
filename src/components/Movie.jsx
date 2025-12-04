@@ -1,6 +1,7 @@
 import MovieBasic from "./MovieBasic";
 import Rating from "./Rating";
 import useLocalStorage from "../hooks/UseLocalStorage";
+import useLocalStorageState from "use-local-storage-state";
 
 // Use https://api.themoviedb.org/3/movie/{movie_id}.
 
@@ -9,13 +10,15 @@ import useLocalStorage from "../hooks/UseLocalStorage";
 export default function Movie(props) {
     const { id, title, year, runtime, rated, genre, poster, tagline } = props
 
-    const [movies, setMovies] = useLocalStorage("movies", {});
+    const [movies, setMovies] = useLocalStorageState("movies", {
+        defaultValue: {
+            favorited: false,
+            watched: false,
+            rating: [0, ""]
+        }
+    });
 
-    const movieData = movies[id] || {
-        favorited: false,
-        watched: false,
-        rating: [0, ""],
-    };
+    const movieData = movies[id] || {};
 
     const { favorited, watched, rating } = movieData;
 
